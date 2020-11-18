@@ -33,7 +33,7 @@
       },
 
     "dnsNameforLBIP": {
-      "type": "Object",
+      "type": "string",
       "metadata": {
         "description": "DNS for Load Balancer IP"
         }
