@@ -31,12 +31,7 @@
           "description": "Specifies the virtual machine administrator username."
         }
       },
-     "adminPassword": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Administrator password for the virtual machines and the Active Directory domain"
-          }
-        },
+
     "dnsNameforLBIP": {
       "type": "string",
         "defaultValue": "eli-rancher",
