@@ -72,7 +72,7 @@
                             "domainNameLabel": "Domain Name prefix For Loadbalncer"
                         },
                         "defaultValue": {
-                            "publicIpAddressName": "loadBalncerIP",
+                            "publicIpAddressName": "loadblancerIP",
 			                "domainNameLabel": "rancher"
                             },
                             "constraints": {
