@@ -109,12 +109,12 @@
         "outputs": {
             "location": "[location()]",
             "adminUsername":"[steps('vmCredentials').adminUsername]",
-            "adminPasswordorKey": "[steps('vmCredentials').sshPublicKey]",
-            "adminPassword": "[steps('vmCredentials').password]",
+            "adminPasswordorKey": "[coalesce(steps('vmCredentials').password, steps('vmCredentials')sshPublicKey]",
             "dnsNameforLBIP": "[steps('vmCredentials').dnsNameforLBIP.domainNameLabel]",
             "publicIPName": "[steps('vmCredentials').dnsNameforLBIP.publicIpAddress]",
             "vmName": "[steps('vmCredentials').vmName]",
             "vmSize": "[steps('vmCredentials').vmSize]"
+
 
 
         }

@@ -32,13 +32,6 @@
         }
       },
 
-     "adminPassword": {
-        "type": "string",
-        "metadata": {
-          "description": "Specifies the virtual machine administrator username."
-        }
-      },
-
     "dnsNameforLBIP": {
       "type": "string",
       "metadata": {
@@ -308,7 +301,7 @@
           "osProfile": {
             "computerName": "[concat(parameters('vmName'),'-vm', copyIndex(1))]",
             "adminUsername": "[parameters('adminUsername')]",
-            "adminPassword": "[parameters('adminPassword')]",
+            "adminPassword": "[parameters('adminPasswordOrKey')]",
             "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
           }
         },
