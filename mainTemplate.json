@@ -34,7 +34,6 @@
 
     "dnsNameforLBIP": {
       "type": "string",
-        "defaultValue": "eli-rancher",
       "metadata": {
         "description": "DNS for Load Balancer IP"
         }
