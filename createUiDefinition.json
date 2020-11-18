@@ -109,7 +109,7 @@
         "outputs": {
             "location": "[location()]",
             "adminUsername":"[steps('vmCredentials').adminUsername]",
-            "adminPassword": "[steps('vmCredentials').adminPasswordorKey]",
+            "adminPasswordorKey": "[steps('vmCredentials').adminPasswordorKey]",
             "dnsNameforLBIP": "[steps('vmCredentials').dnsNameforLBIP]",
             "vmName": "[steps('vmCredentials').vmName]",
             "vmSize": "[steps('vmCredentials').vmSize]"
