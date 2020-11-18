@@ -109,7 +109,7 @@
         "outputs": {
             "location": "[location()]",
             "adminUsername":"[steps('vmCredentials').adminUsername]",
-            "adminPasswordorKey": "[coalesce(steps('vmCredentials').password, steps('vmCredentials')sshPublicKey]",
+            "adminPasswordorKey": "[coalesce(steps('adminPasswordorKey').password, steps('adminPasswordorKey')sshPublicKey]",
             "dnsNameforLBIP": "[steps('vmCredentials').dnsNameforLBIP.domainNameLabel]",
             "publicIPName": "[steps('vmCredentials').dnsNameforLBIP.publicIpAddress]",
             "vmName": "[steps('vmCredentials').vmName]",
