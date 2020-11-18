@@ -56,6 +56,14 @@
         "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
             }
         },
+         "_artifactsLocation": {
+          "type": "string",
+          "metadata": {
+              "description": "The base URI where artifacts required by this template are located including a trailing '/'"
+          },
+          "defaultValue": "[deployment().properties.templateLink.uri]"  //use this for the Azure marketplace
+        
+      },
 
       "vmSize": {
       "type": "string",
@@ -99,17 +107,9 @@
       "vNetSubnetAddressPrefix": "10.0.1.0/24",
       "vmStorageAccountType": "Standard_LRS",
       "vmSize": "[parameters('vmSize')]",
-       "_artifactsLocation": {
-          "type": "string",
-          "metadata": {
-              "description": "The base URI where artifacts required by this template are located including a trailing '/'"
-          },
-          "defaultValue": "[deployment().properties.templateLink.uri]"  //use this for the Azure marketplace
-        
-      },
       "scriptName1": "install-rancher",
       "scriptNameSh1": "[concat(variables('scriptName1'), '.sh')]",
-      "scriptUri": "[concat(variables('_artifactsLocation'),variables('scriptNameSh1'))]",
+      "scriptUri": "[concat(parameters('_artifactsLocation'),variables('scriptNameSh1'))]",
       "linuxConfiguration": {
       "disablePasswordAuthentication": true,
       "ssh": {
