@@ -307,7 +307,7 @@
             "computerName": "[concat(parameters('vmName'),'-vm', copyIndex(1))]",
             "adminUsername": "[parameters('adminUsername')]",
             "adminPassword": "[parameters('adminPassword')]",
-            "linuxConfiguration": "[variables('linuxConfiguration')]"
+           "linuxConfiguration": "[if(parameters('adminPassword'), json('null'), variables('linuxConfiguration'))]"
           }
         },
                     "plan": {
