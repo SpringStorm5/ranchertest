@@ -111,8 +111,8 @@
             "location": "[location()]",
             "adminUsername":"[steps('vmCredentials').adminUsername]",
             "authenticationType": "[steps('vmCredentials').adminPasswordOrKey.authenticationType]",
-            "adminPassword":"[steps('vmCredentials').adminPasswordOrKey.password]",
-            "sshpublickey": "[steps('vmCredentials').adminPasswordOrKey.sshPublicKey],",
+            "adminPassword":"[steps('vmCredentials').adminPasswordOrKey]",
+            "sshpublickey": "[steps('vmCredentials').adminPasswordOrKey],",
             "dnsNameforLBIP": "[steps('vmCredentials').dnsNameforLBIP.domainNameLabel]",
             "vmName": "[steps('vmCredentials').vmName]",
             "vmSize": "[steps('vmCredentials').vmSize]"

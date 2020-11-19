@@ -33,14 +33,12 @@
       },
           "adminPassword": {
       "type": "securestring",
-      "defaultValue": "", 
-      "metadata": {
+       "metadata": {
         "description": "Password for the Virtual Machine. Not used if authenticationType of sshPublicKey."
       }
     },
     "sshPublicKey": {
       "type": "string",
-      "defaultValue": "", 
       "metadata": {
         "description": "SSH RSA public key file as a string. Not used if authenticationType of password."
       }
@@ -412,4 +410,5 @@
         }
       }
     ]
+    
   }
