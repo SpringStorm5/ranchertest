@@ -45,6 +45,17 @@
         "description": "SSH RSA public key file as a string. Not used if authenticationType of password."
       }
     },
+          "authenticationType": {
+      "type": "string",
+      "defaultValue": "sshPublicKey",
+      "allowedValues": [
+        "sshPublicKey",
+        "password"
+      ],
+      "metadata": {
+        "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
+      }
+    },
     "dnsNameforLBIP": {
       "type": "string",
       "defaultValue": "ranchertest",
@@ -307,7 +318,8 @@
             "computerName": "[concat(parameters('vmName'),'-vm', copyIndex(1))]",
             "adminUsername": "[parameters('adminUsername')]",
             "adminPassword": "[parameters('adminPassword')]",
-           "linuxConfiguration": "[if(parameters('adminPassword'), json('null'), variables('linuxConfiguration'))]"
+            "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
+
           }
         },
                     "plan": {
