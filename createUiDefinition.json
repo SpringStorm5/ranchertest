@@ -114,7 +114,6 @@
             "adminPassword":"[steps('vmCredentials').adminPasswordOrKey.password]",
             "sshpublickey": "[steps('vmCredentials').adminPasswordOrKey.sshPublicKey],",
             "dnsNameforLBIP": "[steps('vmCredentials').dnsNameforLBIP.domainNameLabel]",
-            "publicIPName": "[steps('vmCredentials').dnsNameforLBIP.name]",
             "vmName": "[steps('vmCredentials').vmName]",
             "vmSize": "[steps('vmCredentials').vmSize]"
 
