@@ -31,7 +31,20 @@
           "description": "Specifies the virtual machine administrator username."
         }
       },
-
+          "adminPassword": {
+      "type": "securestring",
+      "defaultValue": "", 
+      "metadata": {
+        "description": "Password for the Virtual Machine. Not used if authenticationType of sshPublicKey."
+      }
+    },
+    "sshPublicKey": {
+      "type": "string",
+      "defaultValue": "", 
+      "metadata": {
+        "description": "SSH RSA public key file as a string. Not used if authenticationType of password."
+      }
+    },
     "dnsNameforLBIP": {
       "type": "string",
       "defaultValue": "ranchertest",
@@ -51,12 +64,7 @@
         "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
       }
     },
-     "adminPasswordOrKey": {
-        "type": "securestring",
-        "metadata": {
-        "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
-            }
-        },
+
          "_artifactsLocation": {
           "type": "string",
           "metadata": {
@@ -111,17 +119,20 @@
       "scriptName1": "install-rancher",
       "scriptNameSh1": "[concat(variables('scriptName1'), '.sh')]",
       "scriptUri": "[concat(parameters('_artifactsLocation'),variables('scriptNameSh1'))]",
-      "linuxConfiguration": {
+      "linuxConfiguration_sshPublicKey": {
       "disablePasswordAuthentication": true,
       "ssh": {
         "publicKeys": [
           {
             "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
-            "keyData": "[parameters('adminPasswordOrKey')]"
+            "keyData": "[parameters('sshPublicKey')]"
           }
         ]
       }
-    }
+    },
+    "linuxConfiguration_password": {},
+    "linuxConfiguration": "[variables(concat('linuxConfiguration_', parameters('authenticationType')))]"
+
     },
     "resources": [
       {   "apiVersion": "2019-07-01",
@@ -302,8 +313,8 @@
           "osProfile": {
             "computerName": "[concat(parameters('vmName'),'-vm', copyIndex(1))]",
             "adminUsername": "[parameters('adminUsername')]",
-            "adminPassword": "[parameters('adminPasswordOrKey')]",
-            "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
+            "adminPassword": "[parameters('adminPassword')]",
+            "linuxConfiguration": "[variables('linuxConfiguration')]"
           }
         },
                     "plan": {
