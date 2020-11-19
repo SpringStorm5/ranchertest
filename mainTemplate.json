@@ -52,18 +52,6 @@
         "description": "DNS for Load Balancer IP"
         }
       },
-        
-      "authenticationType": {
-      "type": "string",
-      "defaultValue": "sshPublicKey",
-      "allowedValues": [
-        "sshPublicKey",
-        "password"
-      ],
-      "metadata": {
-        "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
-      }
-    },
 
          "_artifactsLocation": {
           "type": "string",
@@ -72,6 +60,13 @@
           },
           "defaultValue": "[deployment().properties.templateLink.uri]"  //use this for the Azure marketplace
         
+      },
+        "_artifactsLocationSasToken": {
+          "type": "securestring",
+          "metadata": {
+              "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated. Use the defaultValue if the staging location is not secured."
+          },
+          "defaultValue": ""
       },
 
       "vmSize": {
@@ -118,9 +113,8 @@
       "vmSize": "[parameters('vmSize')]",
       "scriptName1": "install-rancher",
       "scriptNameSh1": "[concat(variables('scriptName1'), '.sh')]",
-      "scriptUri": "[concat(parameters('_artifactsLocation'),variables('scriptNameSh1'))]",
-      "linuxConfiguration_sshPublicKey": {
-      "disablePasswordAuthentication": true,
+      "scriptFileUri": "[uri(parameters('_artifactsLocation'), concat('scripts/install-rancher.sh', parameters('_artifactsLocationSasToken')))]",
+      "linuxConfiguration": {
       "ssh": {
         "publicKeys": [
           {
@@ -129,9 +123,8 @@
           }
         ]
       }
-    },
-    "linuxConfiguration_password": {},
-    "linuxConfiguration": "[variables(concat('linuxConfiguration_', parameters('authenticationType')))]"
+    }
+
 
     },
     "resources": [
@@ -400,7 +393,7 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
             "fileUris": [
-                  "[variables('scriptUri')]"
+                  "[variables('scriptFileUri')]"
             ],
         "commandToExecute": "[concat('bash ', variables('scriptNameSh1'),' ',parameters('adminUsername'),' ',reference(resourceId('Microsoft.Network/publicIPAddresses',variables('lbPublicIPAddressName'))).IpAddress,' ',reference(resourceId('Microsoft.Network/publicIPAddresses',variables('lbPublicIPAddressName'))).dnsSettings.fqdn,' ',variables('numberOfVMs'),' ',reference(resourceId('Microsoft.Network/publicIPAddresses',variables('ip1'))).IpAddress,' ',reference(variables('nic1')).ipConfigurations[0].properties.privateIPAddress,' ',variables('vm1'),' ',reference(resourceId('Microsoft.Network/publicIPAddresses',variables('ip2'))).IpAddress,' ',reference(variables('nic2')).ipConfigurations[0].properties.privateIPAddress,' ',variables('vm2'),' ',reference(resourceId('Microsoft.Network/publicIPAddresses',variables('ip3'))).IpAddress,' ',reference(variables('nic3')).ipConfigurations[0].properties.privateIPAddress,' ',variables('vm3'))]"
           }

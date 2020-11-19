@@ -47,6 +47,12 @@
                             "confirmPassword": "Confirm password",
                             "sshPublicKey": "SSH public key"
                         },
+                        "toolTip": {
+                            "authenticationType": "Authentication Type for the Virtual Machine",
+                            "password": "Password for the Virtual Machine",
+                            "sshPublicKey": "SSH Public Key for the Virtual Machine"
+                        },
+
 
                         "constraints": {
                             "required": true
@@ -104,8 +110,7 @@
         "outputs": {
             "location": "[location()]",
             "adminUsername":"[steps('vmCredentials').adminUsername]",
-            "authenticationType":"[steps('vmCredentials').authenticationType]",
-            "adminPasswordOrKey":"[steps('vmCredentials').adminPasswordOrKey.password,]",
+            "adminPassword":"[steps('vmCredentials').adminPasswordOrKey.password,]",
             "sshpublickey": "[steps('vmCredentials').adminPasswordOrKey.sshPublicKey],",
             "dnsNameforLBIP": "[steps('vmCredentials').dnsNameforLBIP.domainNameLabel]",
             "publicIPName": "[steps('vmCredentials').dnsNameforLBIP.name]",
